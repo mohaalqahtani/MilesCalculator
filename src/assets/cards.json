@@ -1,0 +1,138 @@
+{
+  "alrajhi": {
+    "name":"الراجحي",
+    "cards": [
+      {
+        "label": "بلاتينيوم",
+        "img": "/cards/AlFursanPlatinum.png",
+        "localcals": 4.25,
+        "intercals": 3.5
+      },
+      {
+        "label": "انفينت",
+        "img": "/cards/AlFursaninfinite.png",
+        "localcals": 3,
+        "intercals": 2
+      }
+    ]
+  },
+  "alinma": {
+    "name":"الانماء",
+    "cards":[
+        {
+        "label": "بلاتينيوم",
+        "img": "/cards/AlfursanAli.png",
+        "localcals": 4,
+        "intercals": 3  
+        },
+        {
+        "label": "سيغنتشر",
+        "img": "/cards/Alfursansig.png",
+        "localcals": 3,
+        "intercals": 1.5  
+        },
+        {
+        "label": "انفينت",
+        "img": "/cards/Alfursaninf.png",
+        "localcals": 2.5,
+        "intercals": 1  
+        }
+    ]
+  },
+  "sabb": {
+    "name":"ساب",
+    "cards":[
+        {
+        "label": "بلاك",
+        "img": "/cards/alfursansabb.png",
+        "localcals": 2.5,
+        "intercals": 1  
+        }
+    ]
+  },
+  "snb": {
+    "name":"الاهلي",
+    "cards":[
+        {
+        "label": "بلاتينيوم",
+        "img": "/cards/snbplat.jpg",
+        "localcals": 3,
+        "intercals": 3  
+        },
+        {
+        "label": "انفينت",
+        "img": "/cards/snbinf.jpg",
+        "localcals": 3,
+        "intercals": 2  
+        }
+    ]
+  },
+  "bsf": {
+    "name":"الفرنسي",
+    "cards":[
+        {
+        "label": "بلاتينيوم",
+        "img": "/cards/bsfplat.jpg",
+        "localcals": 4,
+        "intercals": 3  
+        },
+        {
+        "label": "انفينت",
+        "img": "/cards/bsfinf.png",
+        "localcals": 2.5,
+        "intercals": 1.5  
+        }
+    ]
+  },
+  "anb": {
+    "name":"العربي",
+    "cards":[
+        {
+        "label": "سيجنتشر",
+        "img": "/cards/anbsig.png",
+        "localcals": 4,
+        "intercals": 2.5  
+        },
+        {
+        "label": "انفينت",
+        "img": "/cards/anbinf.png",
+        "localcals": 3,
+        "intercals": 2  
+        }
+    ]
+  },
+  "riy": {
+    "name":"الرياض",
+    "cards":[
+        {
+        "label": "سيجنتشر",
+        "img": "/cards/riysig.png",
+        "localcals": 3,
+        "intercals": 2.5  
+        },
+        {
+        "label": "انفينت",
+        "img": "/cards/riyinf.png",
+        "localcals": 2.5,
+        "intercals": 1.5  
+        }
+    ]
+  },
+  "mp": {
+    "name":"موبايلي باي",
+    "cards":[
+        {
+        "label": "بلاتينيوم",
+        "img": "/cards/mpPlat.png",
+        "localcals": 8,
+        "intercals": 6  
+        },
+        {
+        "label": "سيجنتشر",
+        "img": "/cards/mpSig.png",
+        "localcals": 5,
+        "intercals": 4  
+        }
+    ]
+  }
+}
