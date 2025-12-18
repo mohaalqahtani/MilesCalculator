@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as SwitchPrimitive from "@radix-ui/react-switch"
-
+import { MdBrightness6 } from "react-icons/md";
 import { cn } from "@/lib/utils"
 
 function Switch({
@@ -15,6 +15,7 @@ function Switch({
         className
       )}
       {...props}>
+        <MdBrightness6/>
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
         className={cn(

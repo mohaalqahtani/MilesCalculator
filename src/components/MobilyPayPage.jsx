@@ -9,13 +9,21 @@ export default function MobilyPayPage({price, onCalc}){
     const value = Number(price);
     const localcal = value && card?.localcals ? Number((value / card?.localcals).toFixed(2)) : 0;
     const intercal = value && card?.intercals ? Number((value / card?.intercals).toFixed(2)) : 0;
+    const IssFee = card?.IssuanceFee;
+    const AnnFee = card?.AnnualFee;
+    const ProRate = card?.ProfitRate;
+    const ForeignFee = card?.ForeignFee;
     useEffect(()=>{
         if(card && value){
             onCalc({
-                bank: "الفرنسي",
+                bank: "موبايلي باي",
                 card: card.label,
                 localcal,
                 intercal,
+                IssFee,
+                AnnFee,
+                ProRate,
+                ForeignFee
             });
         }
     },[card,value]);
@@ -23,11 +31,11 @@ export default function MobilyPayPage({price, onCalc}){
         <>
         <ul className=" text-sm font-medium text-center text-body">
             <li>
-            <CardSelect cards={cards} value={card} onChange={setCard}/>
-                <p>{card?.label}</p>
-                <img className='w-20 m-auto' src={card?.img} alt="" />
-                <CountUp from={0} to={localcal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل محلي <br/>
-                <CountUp from={0} to={intercal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل دولي 
+          <CardSelect cards={cards} value={card} onChange={setCard}/>
+          <br />
+          <br />
+                <CountUp from={0} to={localcal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل محلي 🇸🇦<br/>
+                <CountUp from={0} to={intercal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل دولي ✈️
             </li>
         </ul>
         </>

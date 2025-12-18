@@ -49,6 +49,7 @@ export default function CardSelect({ cards, value, onChange }) {
                   }}
                 >
                   {item.label}
+                  <img src={item.img} className="w-20 m-auto" alt="" />
                   <Check
                     className={cn(
                       "ml-auto",

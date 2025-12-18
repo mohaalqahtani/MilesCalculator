@@ -8,13 +8,21 @@ export default function AlrajhiPage({price, onCalc}){
     const value = Number(price);
     const localcal = value && card?.localcals ? Number((value / card?.localcals).toFixed(2)) : 0;
     const intercal = value && card?.intercals ? Number((value / card?.intercals).toFixed(2)) : 0;
+    const IssFee = card?.IssuanceFee;
+    const AnnFee = card?.AnnualFee;
+    const ProRate = card?.ProfitRate;
+    const ForeignFee = card?.ForeignFee;
     useEffect(()=>{
         if(card && value){
             onCalc({
                 bank: "الراجحي",
-                card: card.label,
+                ...card,
                 localcal,
                 intercal,
+                IssFee,
+                AnnFee,
+                ProRate,
+                ForeignFee
             });
         }
     },[card,value]);
@@ -23,10 +31,10 @@ export default function AlrajhiPage({price, onCalc}){
         <ul className=" text-sm font-medium text-center text-body">
         <li>
           <CardSelect cards={cards} value={card} onChange={setCard}/>
-                <p>{card?.label}</p>
-                <img className='w-30 m-auto' src={card?.img} alt="" />
-                <CountUp from={0} to={localcal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل محلي <br/>
-                <CountUp from={0} to={intercal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل دولي 
+          <br />
+          <br />
+                <CountUp from={0} to={localcal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل محلي 🇸🇦<br/>
+                <CountUp from={0} to={intercal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل دولي ✈️
             </li>
         </ul>
         </>

@@ -6,13 +6,23 @@
         "label": "بلاتينيوم",
         "img": "/cards/AlFursanPlatinum.png",
         "localcals": 4.25,
-        "intercals": 3.5
+        "intercals": 3.5,
+        "IssuanceFee": 490,
+        "AnnualFee": 490,
+        "ProfitRate": 2.5,
+        "ForeignFee": 2
       },
       {
         "label": "انفينت",
         "img": "/cards/AlFursaninfinite.png",
         "localcals": 3,
-        "intercals": 2
+        "intercals": 2,
+        "IssuanceFee": 1000,
+        "IssuanceFeeTmy":700,
+        "AnnualFee": 1000,
+        "AnnualFeeTmy": 700,
+        "ProfitRate": 2.5,
+        "ForeignFee": 2
       }
     ]
   },
@@ -23,19 +33,31 @@
         "label": "بلاتينيوم",
         "img": "/cards/AlfursanAli.png",
         "localcals": 4,
-        "intercals": 3  
+        "intercals": 3,
+        "IssuanceFee":300,
+        "AnnualFee": 150,
+        "ProfitRate": 2.5,
+        "ForeignFee": 2
         },
         {
         "label": "سيغنتشر",
         "img": "/cards/Alfursansig.png",
         "localcals": 3,
-        "intercals": 1.5  
+        "intercals": 1.5,
+        "IssuanceFee": 900,
+        "AnnualFee": 500,
+        "ProfitRate": 2.5,
+        "ForeignFee": 2
         },
         {
         "label": "انفينت",
         "img": "/cards/Alfursaninf.png",
         "localcals": 2.5,
-        "intercals": 1  
+        "intercals": 1,
+        "IssuanceFee":2000,
+        "AnnualFee":1000,
+        "ProfitRate":2.5,
+        "ForeignFee":2
         }
     ]
   },
@@ -46,7 +68,11 @@
         "label": "بلاك",
         "img": "/cards/alfursansabb.png",
         "localcals": 2.5,
-        "intercals": 1  
+        "intercals": 1,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 1950,
+        "ProfitRate":3,
+        "ForeignFee":2
         }
     ]
   },
@@ -57,13 +83,21 @@
         "label": "بلاتينيوم",
         "img": "/cards/snbplat.jpg",
         "localcals": 3,
-        "intercals": 3  
+        "intercals": 3,
+        "IssuanceFee":"غير معلوم",
+        "AnnualFee":350,
+        "ProfitRate":2.5,
+        "ForeignFee":2
         },
         {
         "label": "انفينت",
         "img": "/cards/snbinf.jpg",
         "localcals": 3,
-        "intercals": 2  
+        "intercals": 2,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 750,
+        "ProfitRate":2.5,
+        "ForeignFee":2
         }
     ]
   },
@@ -74,13 +108,21 @@
         "label": "بلاتينيوم",
         "img": "/cards/bsfplat.jpg",
         "localcals": 4,
-        "intercals": 3  
+        "intercals": 3,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 600,
+        "ProfitRate":3,
+        "ForeignFee":2
         },
         {
         "label": "انفينت",
         "img": "/cards/bsfinf.png",
         "localcals": 2.5,
-        "intercals": 1.5  
+        "intercals": 1.5,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 2000,
+        "ProfitRate":3,
+        "ForeignFee":2 
         }
     ]
   },
@@ -91,13 +133,21 @@
         "label": "سيجنتشر",
         "img": "/cards/anbsig.png",
         "localcals": 4,
-        "intercals": 2.5  
+        "intercals": 2.5,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 1150,
+        "ProfitRate":"تقريبآ من 2.20% الى 4.2%",
+        "ForeignFee":2 
         },
         {
         "label": "انفينت",
         "img": "/cards/anbinf.png",
         "localcals": 3,
-        "intercals": 2  
+        "intercals": 2,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 2300,
+        "ProfitRate":"تقريبآ من 2.20% الى 4.2%",
+        "ForeignFee":2 
         }
     ]
   },
@@ -108,13 +158,21 @@
         "label": "سيجنتشر",
         "img": "/cards/riysig.png",
         "localcals": 3,
-        "intercals": 2.5  
+        "intercals": 2.5,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 1150,
+        "ProfitRate":2.35,
+        "ForeignFee":2 
         },
         {
         "label": "انفينت",
         "img": "/cards/riyinf.png",
         "localcals": 2.5,
-        "intercals": 1.5  
+        "intercals": 1.5,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 2300,
+        "ProfitRate":2.2,
+        "ForeignFee":2 
         }
     ]
   },
@@ -125,13 +183,21 @@
         "label": "بلاتينيوم",
         "img": "/cards/mpPlat.png",
         "localcals": 8,
-        "intercals": 6  
+        "intercals": 6,
+        "IssuanceFee": "مجانية",
+        "AnnualFee": "مجانية",
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":1.99 
         },
         {
         "label": "سيجنتشر",
         "img": "/cards/mpSig.png",
         "localcals": 5,
-        "intercals": 4  
+        "intercals": 4,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 322,
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":1.99 
         }
     ]
   }
