@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import * as dataCards from '../assets/cards.json'
-import CountUp from './CountUp'
-import CardSelect from './CardSelect';
+import * as dataCards from '@/assets/cards.json'
+import CardSelect from '@/components/CardSelect';
+import CountUp from '@/components/CountUp'
 
 export default function MobilyPayPage({price, onCalc}){
     const [card, setCard] = useState(null);

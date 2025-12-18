@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import './App.css'
-import TabsCho from './components/tabsCho';
+import '@/App.css'
+import TabsCho from '@/components/tabsCho';
 import {
   Card,
   CardContent,

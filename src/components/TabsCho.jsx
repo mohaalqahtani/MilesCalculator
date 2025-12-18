@@ -7,17 +7,17 @@ import Bsf from '/bsf.svg'
 import Anb from '/anb.svg'
 import Riyb from '/riyb.svg'
 import MobPay from '/mobilypay.svg'
-import AlrajhiPage from "./AlrajhiPage";
-import AlinmaPage from "./AlinmaPage";
-import SabbPage from './SabbPage'
-import SnbPage from "./SnbPage"
-import BsfPage from "./BsfPage"
-import AnbPage from "./AnbPage"
-import RiyPage from "./RiyPage"
-import MobilyPayPage from "./MobilyPayPage"
+import AlrajhiPage from "@/components/AlrajhiPage";
+import AlinmaPage from "@/components/AlinmaPage";
+import SabbPage from '@/components/SabbPage'
+import SnbPage from "@/components/SnbPage"
+import BsfPage from "@/components/BsfPage"
+import AnbPage from "@/components/AnbPage"
+import RiyPage from "@/components/RiyPage"
+import MobilyPayPage from "@/components/MobilyPayPage"
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfPrint from './PdfPrint';
-import * as dataCards from '../assets/cards.json';
+import PdfPrint from '@/components/PdfPrint';
+import * as dataCards from '@/assets/cards.json';
 import {CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {Table,TableBody,TableCell,TableRow,} from "@/components/ui/table"

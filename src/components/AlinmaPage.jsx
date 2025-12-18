@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import * as dataCards from '../assets/cards.json'
-import CardSelect from './CardSelect';
-import CountUp from './CountUp'
+import * as dataCards from '@/assets/cards.json'
+import CardSelect from '@/components/CardSelect';
+import CountUp from '@/components/CountUp'
 
 const cards = dataCards.alinma.cards;
 export default function AlinmaPage({price, onCalc}){
