@@ -19,5 +19,5 @@ body {
 
 @font-face {
   font-family: 'KOMethlama';
-  src: url('./fonts/KOOkies-Bold.otf');
+  src: url('/fonts/KOOkies-Bold.otf');
 }
