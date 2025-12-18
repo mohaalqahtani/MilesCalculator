@@ -5,14 +5,14 @@ import { BrowserRouter, Routes, Route } from "react-router";
 
 import './index.css'
 import App from './App.jsx'
-import CashBack from './CashBack';
+// import CashBack from './CashBack';
 
 const root = document.getElementById("root");
 ReactDOM.createRoot(root).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/cashback" element={<CashBack />} />
+      {/* <Route path="/cashback" element={<CashBack />} /> */}
     </Routes>
   </BrowserRouter>,
 );
