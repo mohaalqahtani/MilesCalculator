@@ -1,4 +1,5 @@
-import { Switch } from "@/components/ui/switch"
+import { Moon } from "lucide-react"
+import { Toggle } from "@/components/ui/toggle"
 import { useEffect, useState } from "react"
 export default function DarkMode(){
     const [isDark, setisDark] = useState(()=>{
@@ -14,7 +15,9 @@ export default function DarkMode(){
     },[isDark])
     return(
         <>
-        <Switch onCheckedChange={setisDark} checked={isDark}/>
+    <Toggle className="w-fit" size="sm"pressed={isDark} onPressedChange={setisDark}>
+     <Moon/>
+    </Toggle>
         </>
     )
 }

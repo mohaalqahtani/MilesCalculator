@@ -16,7 +16,7 @@ import AnbPage from "@/components/AnbPage"
 import RiyPage from "@/components/RiyPage"
 import MobilyPayPage from "@/components/MobilyPayPage"
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfPrint from '@/components/PdfPrint';
+import PdfPrint from '@/components/shared/PdfPrint';
 import * as dataCards from '@/assets/cards.json';
 import {CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"

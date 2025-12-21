@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '@/App.css'
-import TabsCho from '@/components/TabsCho';
+import TabsCho from '@/components/shared/TabsCho';
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Input } from "@/components/ui/input"
-import DarkToggle from '@/components/DarkMode';
+import DarkToggle from '@/components/shared/DarkMode';
 import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import {
   Avatar,
@@ -30,6 +30,7 @@ import {
 function App() {
   const [price,setPrice] = useState("");
   const MAX_VALUE = 1000000;
+  
   return (
     <>
     <Card className="w-full max-w-sm justify-center">
@@ -94,7 +95,8 @@ function App() {
       </CardContent>
     </Card>
     </>
+    
   )
-
+  
 }
 export default App

@@ -1,16 +1,14 @@
 {
   "name": "milescal",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "homepage": "https://mohaalqahtani.github.io/MilesCalculator",
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
-
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -23,6 +21,7 @@
     "@radix-ui/react-popover": "^1.1.15",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-switch": "^1.2.6",
+    "@radix-ui/react-toggle": "^1.1.10",
     "@react-pdf/renderer": "^4.3.1",
     "@tailwindcss/vite": "^4.1.18",
     "class-variance-authority": "^0.7.1",

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as dataCards from '@/assets/cards.json'
-import CardSelect from '@/components/CardSelect';
-import CountUp from '@/components/CountUp'
+import CardSelect from '@/components/shared/CardSelect';
+import CountUp from '@/components/shared/CountUp'
 export default function AnbPage({price, onCalc}){
     const [card, setCard] = useState(null);
     const cards = dataCards.anb.cards;
