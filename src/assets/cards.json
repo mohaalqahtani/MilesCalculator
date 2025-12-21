@@ -1,9 +1,10 @@
 {
   "alrajhi": {
     "name":"الراجحي",
+    "logo":"/alrajhi.svg",
     "cards": [
       {
-        "label": "بلاتينيوم",
+        "label": "بلاتينيوم الفرسان",
         "img": "/cards/AlFursanPlatinum.png",
         "localcals": 4.25,
         "intercals": 3.5,
@@ -13,7 +14,19 @@
         "ForeignFee": 2
       },
       {
-        "label": "انفينت",
+        "label": "انفينت الفرسان",
+        "img": "/cards/AlFursaninfinite.png",
+        "localcals": 3,
+        "intercals": 2,
+        "IssuanceFee": 1000,
+        "IssuanceFeeTmy":700,
+        "AnnualFee": 1000,
+        "AnnualFeeTmy": 700,
+        "ProfitRate": 2.5,
+        "ForeignFee": 2
+      },
+      {
+        "label": "انفينت ",
         "img": "/cards/AlFursaninfinite.png",
         "localcals": 3,
         "intercals": 2,
@@ -28,6 +41,7 @@
   },
   "alinma": {
     "name":"الانماء",
+    "logo":"/alinma.svg",
     "cards":[
         {
         "label": "بلاتينيوم",
@@ -63,6 +77,7 @@
   },
   "sabb": {
     "name":"ساب",
+    "logo":"/Sab.svg",
     "cards":[
         {
         "label": "بلاك",
@@ -78,6 +93,7 @@
   },
   "snb": {
     "name":"الاهلي",
+    "logo":"/snb.svg",
     "cards":[
         {
         "label": "بلاتينيوم",
@@ -103,6 +119,7 @@
   },
   "bsf": {
     "name":"الفرنسي",
+    "logo": "/bsf.svg",
     "cards":[
         {
         "label": "بلاتينيوم",
@@ -128,6 +145,7 @@
   },
   "anb": {
     "name":"العربي",
+    "logo": "/anb.svg",
     "cards":[
         {
         "label": "سيجنتشر",
@@ -153,6 +171,7 @@
   },
   "riy": {
     "name":"الرياض",
+    "logo": "/riyb.svg",
     "cards":[
         {
         "label": "سيجنتشر",
@@ -178,6 +197,7 @@
   },
   "mp": {
     "name":"موبايلي باي",
+    "logo":"/mobilypay.svg",
     "cards":[
         {
         "label": "بلاتينيوم",

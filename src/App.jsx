@@ -26,7 +26,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-
+import BankCho from '@/components/shared/BankCho';
 function App() {
   const [price,setPrice] = useState("");
   const MAX_VALUE = 1000000;
@@ -39,7 +39,7 @@ function App() {
       <Input type="number" className='w-30 m-auto' value={price} id="price" placeholder='ادخل المبلغ' onChange={(e)=>{const val = e.target.value;if(val === ""){setPrice("");return;}if(Number(val) <= MAX_VALUE){setPrice(val);}}} required />
       </CardHeader>
       <CardContent>
-    <TabsCho price={price}/>
+    <BankCho price={price}/>
     <br />
     <DropdownMenuSeparator/>
     <Accordion

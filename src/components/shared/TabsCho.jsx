@@ -1,12 +1,4 @@
 import { useState } from "react"
-import Alrajhi from '/alrajhi.svg'
-import Alinma from '/alinma.svg'
-import Sabb from '/Sab.svg'
-import Snb from '/snb.svg'
-import Bsf from '/bsf.svg'
-import Anb from '/anb.svg'
-import Riyb from '/riyb.svg'
-import MobPay from '/mobilypay.svg'
 import AlrajhiPage from "@/components/AlrajhiPage";
 import AlinmaPage from "@/components/AlinmaPage";
 import SabbPage from '@/components/SabbPage'
@@ -24,6 +16,8 @@ import {Table,TableBody,TableCell,TableRow,} from "@/components/ui/table"
 import {AlertDialog,AlertDialogAction,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogTitle,AlertDialogTrigger,} from "@/components/ui/alert-dialog"
 import {DropdownMenu,DropdownMenuContent,DropdownMenuGroup,DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuShortcut,DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 import { SaudiRiyalIcon } from "lucide-react"
+import BankCho from "./BankCho"
+
 const SRI = (value) =>{
     if(typeof value === "number"){
         return(
@@ -67,49 +61,7 @@ export default function TabsCho({price}){
       const canGeneratePdf = Number(price) > 0 && res.length > 0;
     return(
     <>
- <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">اختيار بنك</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>قائمة البنوك</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem onClick={()=> setActiveTab(1)}>
-            الراجحي
-            <DropdownMenuShortcut><img className="w-5" src={Alrajhi} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> setActiveTab(2)}>
-            الانماء
-            <DropdownMenuShortcut><img className="w-5" src={Alinma} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> setActiveTab(3)}>
-            ساب
-            <DropdownMenuShortcut><img className="w-5" src={Sabb} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> setActiveTab(4)}>
-            الاهلي
-            <DropdownMenuShortcut><img className="w-5" src={Snb} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> setActiveTab(5)}>
-            الفرنسي
-            <DropdownMenuShortcut><img className="w-5" src={Bsf} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-            <DropdownMenuItem onClick={()=> setActiveTab(6)}>
-           العربي
-            <DropdownMenuShortcut><img className="w-8" src={Anb} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> setActiveTab(7)}>
-            الرياض
-            <DropdownMenuShortcut><img className="w-5" src={Riyb} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> setActiveTab(8)}>
-            موبايلي باي
-            <DropdownMenuShortcut><img className="w-5" src={MobPay} alt="" /></DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <BankCho/>
     <br /><br />
     {activeTab === 1 && <AlrajhiPage price={price} onCalc={handleCalc}/>}
     {activeTab === 2 && <AlinmaPage price={price} onCalc={handleCalc}/>}
