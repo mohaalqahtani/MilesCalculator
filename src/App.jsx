@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import '@/App.css'
 import TabsCho from '@/components/shared/TabsCho';
 import {
@@ -26,11 +26,11 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import BankCho from '@/components/shared/BankCho';
+
 function App() {
   const [price,setPrice] = useState("");
   const MAX_VALUE = 1000000;
-  
+  const handleCalc = (data) => {};
   return (
     <>
     <Card className="w-full max-w-sm justify-center">
@@ -39,9 +39,9 @@ function App() {
       <Input type="number" className='w-30 m-auto' value={price} id="price" placeholder='ادخل المبلغ' onChange={(e)=>{const val = e.target.value;if(val === ""){setPrice("");return;}if(Number(val) <= MAX_VALUE){setPrice(val);}}} required />
       </CardHeader>
       <CardContent>
-    <BankCho price={price}/>
-    <br />
-    <DropdownMenuSeparator/>
+    <TabsCho price={price} />
+
+    <DropdownMenuSeparator className="mt-5"/>
     <Accordion
       type="single"
       collapsible
@@ -95,8 +95,7 @@ function App() {
       </CardContent>
     </Card>
     </>
-    
   )
-  
+
 }
 export default App

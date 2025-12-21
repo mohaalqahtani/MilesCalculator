@@ -1,24 +1,32 @@
-import { useState } from "react"
-import AlrajhiPage from "@/components/AlrajhiPage";
-import AlinmaPage from "@/components/AlinmaPage";
-import SabbPage from '@/components/SabbPage'
-import SnbPage from "@/components/SnbPage"
-import BsfPage from "@/components/BsfPage"
-import AnbPage from "@/components/AnbPage"
-import RiyPage from "@/components/RiyPage"
-import MobilyPayPage from "@/components/MobilyPayPage"
+import { useState , useEffect, useMemo} from "react"
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfPrint from '@/components/shared/PdfPrint';
 import * as dataCards from '@/assets/cards.json';
 import {CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { cn } from "@/lib/utils"
 import {Table,TableBody,TableCell,TableRow,} from "@/components/ui/table"
 import {AlertDialog,AlertDialogAction,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogTitle,AlertDialogTrigger,} from "@/components/ui/alert-dialog"
 import {DropdownMenu,DropdownMenuContent,DropdownMenuGroup,DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuShortcut,DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 import { SaudiRiyalIcon } from "lucide-react"
-import BankCho from "./BankCho"
+import CountUp from '@/components/shared/CountUp'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
-const SRI = (value) =>{
+export default function TabsCho({price , onCalc}){
+  const SRI = (value) =>{
     if(typeof value === "number"){
         return(
             <span className="flex items-center gap-1">
@@ -29,8 +37,38 @@ const SRI = (value) =>{
     }
     return value || "غير معلوم";
 }
-export default function TabsCho({price}){
-    const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const value = Number(price);
+  const [open, setOpen] = useState(false)
+  const [activeBankKey, setActiveBankKey] = useState(null);
+  const canGeneratePdf = Number(price) > 0;
+  const [calcResult, setCalcResult] = useState(null);
+  const calcResultData = useMemo(()=>{
+    if(!selectedCard || !value) return null;
+    return{
+    card : selectedCard,
+    value : Number(price),
+    localcal : value && selectedCard?.localcals ? Number((value / selectedCard.localcals).toFixed(2)) : 0,
+    intercal : value && selectedCard?.intercals ? Number((value / selectedCard.intercals).toFixed(2)) : 0,
+    IssFee : selectedCard?.IssuanceFee,
+    AnnFee : selectedCard?.AnnualFee,
+    ProRate : selectedCard?.ProfitRate,
+    ForeignFee : selectedCard?.ForeignFee,
+    };
+  }, [selectedCard,value])
+useEffect(() => {
+  setCalcResult(calcResultData);
+  onCalc?.(calcResultData);
+}, [calcResultData]);
+
+useEffect(() => {
+  setSelectedCard(null);
+  setCalcResult(null);
+  onCalc?.(null);
+}, [activeBankKey]);
+  const activeBank = activeBankKey
+  ? dataCards.default[activeBankKey]
+  : null;
     const calcAllBanks = (price) =>{
         const value = Number(price);
         if(!value) return[];
@@ -47,33 +85,137 @@ export default function TabsCho({price}){
     })
     return result;
     }
-    const [activeTab, setActiveTab] = useState(0);
-      const [res, setRes] = useState([]);
-      const handleCalc = (data) =>{
-        setRes(prev =>{
-            const filtered = prev.filter(
-                r => !(r.bank === data.bank && r.card === data.card)
-            );
-            return [...filtered, data];
-        });
-          setSelectedCard(data);
-      };
-      const canGeneratePdf = Number(price) > 0 && res.length > 0;
+
     return(
     <>
-    <BankCho/>
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">
+      {activeBankKey
+        ? dataCards.default[activeBankKey].name
+        : "اختيار بنك"}
+    </Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="w-56">
+    <DropdownMenuLabel>قائمة البنوك</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuGroup>
+      {Object.entries(dataCards.default).map(([key, bank]) => (
+        <DropdownMenuItem
+          key={key}
+          onClick={() => setActiveBankKey(key)}
+          className="cursor-pointer"
+        >
+          <div className="flex items-center justify-between w-full">
+            <span>{bank.name}</span>
+            <img src={bank.logo} className="w-5" />
+          </div>
+        </DropdownMenuItem>
+      ))}
+    </DropdownMenuGroup>
+  </DropdownMenuContent>
+</DropdownMenu>
+   <br />
+        <Popover open={open} onOpenChange={setOpen} >
+      <PopoverTrigger asChild>
+        <Button
+        disabled={!activeBank}
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-52 justify-between mt-3"
+        > {selectedCard ? selectedCard.label : "اختر بطاقة"}
+          <ChevronsUpDown className="opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-50 p-0">
+        <Command>
+          <CommandInput placeholder="ابحث بأسم البطاقة" className="h-9" />
+          <CommandList>
+            <CommandEmpty>لاتوجد بطاقة</CommandEmpty>
+            <CommandGroup>
+              {activeBank?.cards.map(card =>(
+                <CommandItem
+                  key={card.label}
+                  value={card.label}
+                  onSelect={() => {
+                    setSelectedCard(card)
+                    setOpen(false)
+                  }}
+                >
+                  {card.label}
+                  <img src={card.img} className="w-20 m-auto" alt="" />
+                <Check
+                className={cn(
+                "ml-auto",
+                selectedCard?.label === card.label
+                ? "opacity-100"
+                : "opacity-0"
+                )}
+                />
+                </CommandItem>
+                ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+
+{calcResult && (
+  <>
     <br /><br />
-    {activeTab === 1 && <AlrajhiPage price={price} onCalc={handleCalc}/>}
-    {activeTab === 2 && <AlinmaPage price={price} onCalc={handleCalc}/>}
-    {activeTab === 3 && <SabbPage price={price} onCalc={handleCalc}/>}
-    {activeTab === 4 && <SnbPage price={price} onCalc={handleCalc}/>}
-    {activeTab === 5 && <BsfPage price={price} onCalc={handleCalc}/>}
-    {activeTab === 6 && <AnbPage price={price} onCalc={handleCalc}/>}
-    {activeTab === 7 && <RiyPage price={price} onCalc={handleCalc}/>}
-    {activeTab === 8 && <MobilyPayPage price={price} onCalc={handleCalc}/>}
-    <br />
-    <CardFooter className="flex-col gap-2">
-        {canGeneratePdf &&
+    <CountUp from={0} to={calcResult.localcal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل محلي 🇸🇦<br/>
+    <CountUp from={0} to={calcResult.intercal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل دولي ✈️<br />
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" className="mt-2.5">عرض تفاصيل البطاقة</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{selectedCard?.label}</AlertDialogTitle>
+          <AlertDialogDescription>
+  <Table>
+      <TableBody>
+          <TableRow>
+      <TableCell className="font-medium">رسوم الاصدار</TableCell>    
+      <TableCell className="text-right">
+        {SRI(calcResult.IssFee)}
+      </TableCell>
+
+      <TableCell className="font-medium">الرسوم السنوية</TableCell>
+      <TableCell className="text-right">
+        {SRI(calcResult.AnnFee)}
+      </TableCell>
+          </TableRow>
+          <TableRow>
+      <TableCell className="font-medium">معدل الربح</TableCell>
+      <TableCell className="text-right">
+        {typeof calcResult.ProRate === "number"
+        ? `${calcResult.ProRate}%`
+        : calcResult.ProRate || ""}
+      </TableCell>
+      
+      <TableCell className="font-medium">نسبة الدفع الدولي</TableCell>
+      <TableCell className="text-right">
+        {typeof calcResult.ForeignFee === "number"
+        ? `${calcResult.ForeignFee}%`
+        : calcResult.ForeignFee || ""}
+      </TableCell>
+          </TableRow>
+      </TableBody>
+
+      </Table>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogAction>اغلاق</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+</>)}
+    
+    <CardFooter className="flex-col gap-2 mt-2.5">
+        {canGeneratePdf && (
         <Button type="submit" className="w-fit">
         <PDFDownloadLink
           document={<PdfPrint price={price} data={calcAllBanks(price)} />}
@@ -84,45 +226,8 @@ export default function TabsCho({price}){
           }
         </PDFDownloadLink>
          </Button>
-      }
-      {canGeneratePdf && 
-       <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">عرض تفاصيل البطاقة</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{selectedCard?.label}</AlertDialogTitle>
-          <AlertDialogDescription>
-  <Table>
-      <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">رسوم الاصدار</TableCell>
-            <TableCell className="text-right">{SRI(selectedCard?.IssuanceFee)}</TableCell>
-            <TableCell className="font-medium">الرسوم السنوية</TableCell>
-            <TableCell className="text-right">{SRI(selectedCard?.AnnFee)}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium">معدل الربح</TableCell>
-            <TableCell className="text-right">
-                {typeof selectedCard?.ProRate === "number" ? `${selectedCard?.ProRate}%` : selectedCard?.ProRate || ""}
-            </TableCell>
-            <TableCell className="font-medium">نسبة الدفع الدولي</TableCell>
-            <TableCell className="text-right">
-                {typeof selectedCard?.ForeignFee === "number" ? `${selectedCard?.ForeignFee}%` : selectedCard?.ForeignFee || ""}
-            </TableCell>
-          </TableRow>
-      </TableBody>
-
-    </Table>
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogAction>اغلاق</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-    }
+)}
+     
       </CardFooter>
     </>
     )
