@@ -1,8 +1,11 @@
 # TODO 
 - Add DarkMode ✅
 - Add Fees For All The Cards ✅
-- Add Ads ⏳
+- Clean The Code ✅⏳
 
-in the Future :
+v0.0.2 :
 - Add Section For Cashback Cards ⏳
-- H
+
+
+v100000 :
+- Add Ads ⏳
