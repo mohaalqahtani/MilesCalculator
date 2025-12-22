@@ -41,7 +41,6 @@ export default function TabsCho({price , onCalc}){
   const value = Number(price);
   const [open, setOpen] = useState(false)
   const [activeBankKey, setActiveBankKey] = useState(null);
-  const canGeneratePdf = Number(price) > 0;
   const [calcResult, setCalcResult] = useState(null);
   const calcResultData = useMemo(()=>{
     if(!selectedCard || !value) return null;
@@ -116,6 +115,7 @@ useEffect(() => {
   </DropdownMenuContent>
 </DropdownMenu>
    <br />
+   {activeBank && (
         <Popover open={open} onOpenChange={setOpen} >
       <PopoverTrigger asChild>
         <Button
@@ -160,7 +160,7 @@ useEffect(() => {
         </Command>
       </PopoverContent>
     </Popover>
-
+)}
 {calcResult && (
   <>
     <br /><br />
@@ -212,10 +212,7 @@ useEffect(() => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-</>)}
-    
     <CardFooter className="flex-col gap-2 mt-2.5">
-        {canGeneratePdf && (
         <Button type="submit" className="w-fit">
         <PDFDownloadLink
           document={<PdfPrint price={price} data={calcAllBanks(price)} />}
@@ -226,9 +223,8 @@ useEffect(() => {
           }
         </PDFDownloadLink>
          </Button>
-)}
-     
       </CardFooter>
+      </>)}
     </>
     )
 }
