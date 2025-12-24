@@ -1,7 +1,7 @@
 import { useState , useEffect, useMemo} from "react"
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfPrint from '@/components/shared/PdfPrint';
-import * as dataCards from '@/assets/cards.json';
+import * as dataCards from '@/assets/CashBack.json';
 import {CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Check, ChevronsUpDown } from "lucide-react"
@@ -24,11 +24,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Input } from "@/components/ui/input"
 
-export default function TabsCho({price , onCalc}){
-  const testString = 'الفرسان';
-  
-  const SRI = (value) =>{
+import Accordions from '@/components/shared/Accordions';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "@/components/ui/card"
+import DarkToggle from '@/components/shared/DarkMode';
+
+
+export default function CashBackCalc({onCalc}){
+      const [price,setPrice] = useState("");
+  const MAX_VALUE = 1000000;
+  const frasan = "الفرسان"
+    const SRI = (value) =>{
     if(typeof value === "number"){
         return(
             <span className="flex items-center gap-1">
@@ -38,23 +49,15 @@ export default function TabsCho({price , onCalc}){
         )
     }
     return value || "غير معلوم";
-}
-Object.entries(dataCards.default).forEach(([_, bank]) => {
-  bank.cards.forEach(card =>{
-    if(new RegExp(testString).test(card.label) === true){
-    console.log(card.label)
     }
-  })
-});
-
   const [selectedCard, setSelectedCard] = useState(null);
   const value = Number(price);
   const [open, setOpen] = useState(false)
   const [activeBankKey, setActiveBankKey] = useState(null);
   const [calcResult, setCalcResult] = useState(null);
   const calcResultData = useMemo(()=>{
-
     if(!selectedCard || !value) return null;
+    if(selectedCard.label.match(frasan)){ 
     return{
     card : selectedCard,
     value : Number(price),
@@ -65,8 +68,8 @@ Object.entries(dataCards.default).forEach(([_, bank]) => {
     ProRate : selectedCard?.ProfitRate,
     ForeignFee : selectedCard?.ForeignFee,
     };
+}
   }, [selectedCard,value])
-
 useEffect(() => {
   setCalcResult(calcResultData);
   onCalc?.(calcResultData);
@@ -91,17 +94,20 @@ useEffect(() => {
                 card: card.label,
                 localcal: card.localcals ? Number((value / card.localcals).toFixed(2)) : 0,
                 intercal: card.intercals ? Number((value / card.intercals).toFixed(2)) : 0,
-  
-              })
+            })
         })
-
- })
+    })
     return result;
     }
-
     return(
     <>
-<DropdownMenu>
+        <Card className="w-full max-w-sm justify-center">
+      <CardHeader>
+              <DarkToggle/>
+      </CardHeader>
+       <Input type="number" className='w-30 m-auto' value={price} id="price" placeholder='ادخل المبلغ' onChange={(e)=>{const val = e.target.value;if(val === ""){setPrice("");return;}if(Number(val) <= MAX_VALUE){setPrice(val);}}} required />
+      <CardContent>
+        <DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Button variant="outline">
       {activeBankKey
@@ -113,7 +119,8 @@ useEffect(() => {
     <DropdownMenuLabel>قائمة البنوك</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
-      {Object.entries(dataCards.default).map(([key, bank]) => (
+      {Object.entries(dataCards.default).filter(([_, bank]) => 
+      bank.cards.some(card=> !card.label.includes(frasan))).map(([key, bank]) => (
         <DropdownMenuItem
           key={key}
           onClick={() => setActiveBankKey(key)}
@@ -139,7 +146,6 @@ useEffect(() => {
           aria-expanded={open}
           className="w-52 justify-between mt-3"
         > {selectedCard ? selectedCard.label : "اختر بطاقة"}
-        
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -149,7 +155,7 @@ useEffect(() => {
           <CommandList>
             <CommandEmpty>لاتوجد بطاقة</CommandEmpty>
             <CommandGroup>
-              {activeBank?.cards.map(card =>(
+              {activeBank?.cards.filter(card => !card.label.includes(frasan)).map(card =>(
                 <CommandItem
                   key={card.label}
                   value={card.label}
@@ -240,6 +246,11 @@ useEffect(() => {
          </Button>
       </CardFooter>
       </>)}
+    <DropdownMenuSeparator className="mt-5"/>
+    <Accordions/>
+      </CardContent>
+    </Card>
+
     </>
     )
 }

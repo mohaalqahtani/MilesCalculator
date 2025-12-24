@@ -1,0 +1,290 @@
+{
+  "alrajhi": {
+    "name":"الراجحي",
+    "logo":"/alrajhi.svg",
+    "cards": [
+      {
+        "label": "البطاقة الرقمية \"كاش باك\"",
+        "img": "/cards/digitalAlr.png",
+        "Cashback":{
+        "LocalPay": 0.006,
+        "InterPay": 0.01
+        },
+        "IssuanceFee": "مجانية",
+        "AnnualFee": "مجانية",
+        "ForeignFee": 2
+      },
+      {
+        "label": "بطاقة قيمرز",
+        "img": "/cards/gamersAlr.png",
+        "Cashback":{
+        "LocalPay": 0.006,
+        "InterPay": 0.01
+        },
+        "IssuanceFee": "مجانية",
+        "AnnualFee": "مجانية",
+        "ForeignFee": 2
+      },
+      {
+        "label": "كاش باك بلس بلاتينيوم الائتمانية",
+        "img": "/cards/PlatCashBackAlr.png",
+        "Cashback":
+          {
+            "Restaurants": 0.1,
+            "SuperMarkets": 0.06,
+            "OnlineStores": 0.02,
+            "InterPay": 0.015,
+            "LocalPay": 0.005
+          },
+          "cap":200,
+          "onlinepayCap": 50,
+        "IssuanceFee": 250,
+        "AnnualFee": "غير معلوم",
+        "ProfitRate": 2.5,
+        "ForeignFee": 2
+      },
+      {
+        "label": "بطاقة كاش باك بلس سيجنيتشر الائتمانية",
+        "img": "/cards/SignCashBackAlr.png",
+        "Cashback":
+          {
+            "Restaurants": 0.1,
+            "SuperMarkets": 0.06,
+            "OnlineStores": 0.02,
+            "InterPay": 0.015,
+            "LocalPay": 0.005
+          },
+          "cap":200,
+          "onlinepayCap": 50,
+        "IssuanceFee": 450,
+        "AnnualFee": "غير معلوم",
+        "ProfitRate": 2.5,
+        "ForeignFee": 2
+      }
+    ]
+  },
+  "alinma": {
+    "name":"الانماء",
+    "logo":"/alinma.svg",
+    "cards":[
+        {
+        "label": "بلاتنيوم مسبقة الدفع",
+        "img": "/cards/CashBackPlatAli.png",
+        "Cashback":{
+        "LocalPay": 0.007
+        },
+        "IssuanceFee":"مجانية",
+        "AnnualFee":0,
+        "ForeignFee":2
+        },
+        {
+        "label": "سيجنتشر مسبقة الدفع",
+        "img": "/cards/CashBackSignAli.png",
+        "Cashback":{
+        "LocalPay": 0.014
+        },
+        "IssuanceFee":"غير معلوم",
+        "AnnualFee":300,
+        "ForeignFee":2
+        }
+    ]
+  },
+  "sabb": {
+    "name":"ساب",
+    "logo":"/Sab.svg",
+    "cards":[
+        {
+        "label": "بطاقة الأول الائتمانية للاسترداد النقدي",
+        "img": "/cards/SabCashBack.png",
+        "Cashback":
+          {
+            "Restaurants": 0.03,
+            "SuperMarkets": 0.03,
+            "GasSt": 0.03,
+            "InterPay": 0.02,
+            "LocalPay": 0.01
+          },
+          "cap":100,
+          "Rescap":200,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": "غير معلوم",
+        "ProfitRate": 3.25,
+        "ForeignFee": 2
+      }
+    ]
+  },
+  "snb": {
+    "name":"الاهلي",
+    "logo":"/snb.svg",
+    "cards":[
+        {
+        "label": "ماستركارد وورلد للاسترداد النقدي",
+        "img": "/cards/SnbCashBackWorld.png",
+        "Cashback":
+          {
+            "Restaurants": 0.05,
+            "SuperMarkets": 0.05,
+            "GasSt": 0.11,
+            "Phar": 0.05,
+            "InterPay": 0.02,
+            "LocalPay": 0.007
+          },
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 200,
+        "ProfitRate": 3.1,
+        "ForeignFee": 2
+      },
+        {
+        "label": "ماستركارد بالتينيوم للاسترداد النقدي",
+        "img": "/cards/SnbCashBackPlat.png",
+        "Cashback":
+          {
+            "Restaurants": 0.05,
+            "SuperMarkets": 0.05,
+            "GasSt": 0.11,
+            "Phar": 0.05,
+            "InterPay": 0.02,
+            "LocalPay": 0.007
+          },
+          "Tiers":[
+            {"min":500, "percent":0.005},
+            {"min": 5000, "percent":0.01},
+            {"min":10000, "percent":0.02}
+          ],
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": "مجانية",
+        "ProfitRate": 2.8,
+        "ForeignFee": 2
+      }
+    ]
+  },
+  "bsf": {
+    "name":"الفرنسي",
+    "logo": "/bsf.svg",
+    "cards":[
+        {
+        "label": "لايف ستايل الائتمانية",
+        "img": "/cards/BsfCashBack.jpg",
+        "Cashback":
+          {
+            "Restaurants": 0.1,
+            "SuperMarkets": 0.03,
+            "Travel": 0.03,
+            "Phar": 0.02,
+            "Edu": 0.02,
+            "InterPay": 0.005,
+            "LocalPay": 0.005
+          },
+        "cap": 200,
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 287.5,
+        "ProfitRate": 3,
+        "ForeignFee": 2
+      }
+    ]
+  },
+  "anb": {
+    "name":"العربي",
+    "logo": "/anb.svg",
+    "cards":[
+        {
+        "label": "البطاقة الرقمية كاش باك",
+        "img": "/cards/AnbCashBack.png",
+        "Cashback":{
+        "LocalPay":0.005,
+        "InterPay":0.01
+        },
+        "IssuanceFee": "مجانية",
+        "AnnualFee": "مجانية",
+        "ProfitRate": "لايوجد",
+        "ForeignFee": 2
+      }
+        
+    ]
+  },
+  "riy": {
+    "name":"الرياض",
+    "logo": "/riyb.svg",
+    "cards":[
+        {
+        "label": "بطاقة الهلال ماستركارد وورلد الائتمانية",
+        "img": "/cards/riyCashBackAlh.png",
+        "type":"cashback",
+        "Cashback":{
+        "LocalPay":0.01,
+        "InterPay":0.015,
+        "onlinepay":0.0125,
+        "gamerspay":0.075,
+        "hotelpay":0.07
+        },
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 402.5,
+        "ProfitRate":"غير واضح",
+        "ForeignFee":2 
+        },
+        {
+        "label": "بطاقة الهلال وورلد إيليت",
+        "img": "/cards/riyCashBackAlhE.png",
+        "type":"cashback",
+        "Cashback":{
+        "LocalPay":0.0125,
+        "InterPay":0.0175,
+        "onlinepay":0.015,
+        "gamerspay":0.1,
+        "hotelpay":0.07
+        },
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 1150,
+        "ProfitRate":"غير واضح",
+        "ForeignFee":2 
+        },
+        {
+        "label": "بطاقة الهلال ماستركارد بلاتينيوم",
+        "img": "/cards/riyCashBackAlhPlat.png",
+        "type":"cashback",
+        "Cashback":{
+        "LocalPay":0.008,
+        "InterPay":0.01,
+        "onlinepay":0.01,
+        "gamerspay":0.05,
+        "hotelpay":0.07
+        },
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 1150,
+        "ProfitRate":"غير واضح",
+        "ForeignFee":2 
+        }
+
+    ]
+  },
+  "mp": {
+    "name":"موبايلي باي",
+    "logo":"/mobilypay.svg",
+    "cards":[
+        {
+        "label": "بلاتينيوم",
+        "img": "/cards/mpPlat.png",
+        "Cashback":{
+        "LocalPay":0.01,
+        "InterPay":0.015
+        },
+        "IssuanceFee": "مجانية",
+        "AnnualFee": "مجانية",
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":1.99 
+        },
+        {
+        "label": "سيجنتشر",
+        "img": "/cards/mpSig.png",
+        "Cashback":{
+        "LocalPay":0.015,
+        "InterPay":0.02
+        },
+        "IssuanceFee": "غير معلوم",
+        "AnnualFee": 322,
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":1.99 
+        }
+    ]
+  }
+}

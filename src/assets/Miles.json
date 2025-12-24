@@ -4,7 +4,7 @@
     "logo":"/alrajhi.svg",
     "cards": [
       {
-        "label": "بلاتينيوم الفرسان",
+        "label": "بلاتينيوم",
         "img": "/cards/AlFursanPlatinum.png",
         "localcals": 4.25,
         "intercals": 3.5,
@@ -14,19 +14,7 @@
         "ForeignFee": 2
       },
       {
-        "label": "انفينت الفرسان",
-        "img": "/cards/AlFursaninfinite.png",
-        "localcals": 3,
-        "intercals": 2,
-        "IssuanceFee": 1000,
-        "IssuanceFeeTmy":700,
-        "AnnualFee": 1000,
-        "AnnualFeeTmy": 700,
-        "ProfitRate": 2.5,
-        "ForeignFee": 2
-      },
-      {
-        "label": "انفينت ",
+        "label": "انفينت",
         "img": "/cards/AlFursaninfinite.png",
         "localcals": 3,
         "intercals": 2,
@@ -167,6 +155,7 @@
         "ProfitRate":"تقريبآ من 2.20% الى 4.2%",
         "ForeignFee":2 
         }
+        
     ]
   },
   "riy": {

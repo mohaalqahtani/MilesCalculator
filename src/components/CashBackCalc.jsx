@@ -1,7 +1,7 @@
 import { useState , useEffect, useMemo} from "react"
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfPrint from '@/components/shared/PdfPrint';
-import * as dataCards from '@/assets/cards.json';
+import * as dataCards from '@/assets/CashBack.json';
 import {CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Check, ChevronsUpDown } from "lucide-react"
@@ -24,11 +24,30 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Input } from "@/components/ui/input"
 
-export default function TabsCho({price , onCalc}){
-  const testString = 'الفرسان';
-  
-  const SRI = (value) =>{
+import Accordions from '@/components/shared/Accordions';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "@/components/ui/card"
+import DarkToggle from '@/components/shared/DarkMode';
+
+
+export default function CashBackCalc(){
+//    dataCards.bsf.cards.forEach(card =>{
+//     card.Cashback.forEach(cb =>{
+//         console.log(cb)
+//     })
+//    })
+//    Object.entries(dataCards.default).forEach(([_, cards]) =>{
+//     console.log(cards.cards)
+//    })
+  const [price,setPrice] = useState("");
+  const MAX_VALUE = 1000000;
+  const frasan = "الفرسان"
+    const SRI = (value) =>{
     if(typeof value === "number"){
         return(
             <span className="flex items-center gap-1">
@@ -38,48 +57,94 @@ export default function TabsCho({price , onCalc}){
         )
     }
     return value || "غير معلوم";
-}
-Object.entries(dataCards.default).forEach(([_, bank]) => {
-  bank.cards.forEach(card =>{
-    if(new RegExp(testString).test(card.label) === true){
-    console.log(card.label)
     }
-  })
-});
-
   const [selectedCard, setSelectedCard] = useState(null);
   const value = Number(price);
   const [open, setOpen] = useState(false)
   const [activeBankKey, setActiveBankKey] = useState(null);
   const [calcResult, setCalcResult] = useState(null);
   const calcResultData = useMemo(()=>{
-
     if(!selectedCard || !value) return null;
+    const cb = selectedCard.Cashback ?? {};
+    const restaurantRate = cb.Restaurants ?? 0;
+    const SuperMarketsRate = cb.SuperMarkets ?? 0;
+    const OnlineStoresRate = cb.OnlineStores ?? 0;
+    const cap = selectedCard.cap ?? null;
+    let onlinepayCap = selectedCard.onlinepayCap ?? null;
+    const GasStRate = cb.GasSt ?? 0;
+    const PharRate = cb.Phar ?? 0;
+    let SuperMarkets = value * SuperMarketsRate;
+    let restaurants = value * restaurantRate;
+    let OnlineStores = value * OnlineStoresRate;
+    let GasSt = value * GasStRate;
+    let Phar = value * PharRate;
+    let IssuanceFee = selectedCard?.IssuanceFee;
+    let AnnualFee = selectedCard?.AnnualFee;
+    let ProfitRate = selectedCard?.ProfitRate;
+    let ForeignFee = selectedCard?.ForeignFee;
+    let LocalPay = value && selectedCard?.Cashback.LocalPay ? Number((value * selectedCard.Cashback.LocalPay).toFixed(2)) : 0;
+    let InterPay = value && selectedCard?.Cashback.InterPay ? Number((value * selectedCard.Cashback.InterPay).toFixed(2)) : 0;
+    // const percent = selectedCard?.Tiers ?? [];
+    // const percents = percent.reduce((acc, tier) => {
+    //     if(value >= tier.min){
+    //         return tier.percent;
+    //     }
+    //     return acc;
+    // }, 0)
+    // console.log(percents)
+    if(cap){
+        if(restaurants > cap){
+            restaurants = cap;
+        }
+        if(SuperMarkets > cap){
+            SuperMarkets = cap;
+        }
+        if(OnlineStores > onlinepayCap){
+            OnlineStores = onlinepayCap;
+        }
+        if(GasSt > cap){
+            GasSt = cap;
+        }
+        if(Phar > cap){
+            Phar = cap;
+        }
+        if(LocalPay > cap){
+            LocalPay = cap;
+        }
+        if(InterPay > cap){
+            InterPay = cap;
+        }
+    }
     return{
-    card : selectedCard,
-    value : Number(price),
-    localcal : value && selectedCard?.localcals ? Number((value / selectedCard.localcals).toFixed(2)) : 0,
-    intercal : value && selectedCard?.intercals ? Number((value / selectedCard.intercals).toFixed(2)) : 0,
-    IssFee : selectedCard?.IssuanceFee,
-    AnnFee : selectedCard?.AnnualFee,
-    ProRate : selectedCard?.ProfitRate,
-    ForeignFee : selectedCard?.ForeignFee,
-    };
+        card: selectedCard,
+        value,
+        Restaurant: Number(restaurants.toFixed(2)),
+        SuperMarkets: Number(SuperMarkets.toFixed(2)),
+        OnlineStores: Number(OnlineStores.toFixed(2)),
+        GasSt: Number(GasSt.toFixed(2)),
+        Phar: Number(Phar.toFixed(2)),
+        cap,
+        LocalPay,
+        InterPay,
+        IssuanceFee,
+        AnnualFee,
+        ProfitRate,
+        ForeignFee
+    }  
   }, [selectedCard,value])
 
 useEffect(() => {
   setCalcResult(calcResultData);
-  onCalc?.(calcResultData);
 }, [calcResultData]);
 
 useEffect(() => {
   setSelectedCard(null);
   setCalcResult(null);
-  onCalc?.(null);
 }, [activeBankKey]);
   const activeBank = activeBankKey
   ? dataCards.default[activeBankKey]
   : null;
+
     const calcAllBanks = (price) =>{
         const value = Number(price);
         if(!value) return[];
@@ -91,17 +156,24 @@ useEffect(() => {
                 card: card.label,
                 localcal: card.localcals ? Number((value / card.localcals).toFixed(2)) : 0,
                 intercal: card.intercals ? Number((value / card.intercals).toFixed(2)) : 0,
-  
-              })
+            })
         })
-
- })
+    })
     return result;
     }
+// if (selectedCard) {
+//   console.log(selectedCard.Cashback);
+// }
 
     return(
     <>
-<DropdownMenu>
+        <Card className="w-full max-w-sm justify-center">
+      <CardHeader>
+              <DarkToggle/>
+      </CardHeader>
+       <Input type="number" className='w-30 m-auto' value={price} id="price" placeholder='ادخل المبلغ' onChange={(e)=>{const val = e.target.value;if(val === ""){setPrice("");return;}if(Number(val) <= MAX_VALUE){setPrice(val);}}} required />
+      <CardContent>
+        <DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Button variant="outline">
       {activeBankKey
@@ -113,7 +185,8 @@ useEffect(() => {
     <DropdownMenuLabel>قائمة البنوك</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
-      {Object.entries(dataCards.default).map(([key, bank]) => (
+      {Object.entries(dataCards.default).filter(([_, bank]) => 
+      bank.cards.some(card=> !card.label.includes(frasan))).map(([key, bank]) => (
         <DropdownMenuItem
           key={key}
           onClick={() => setActiveBankKey(key)}
@@ -137,9 +210,8 @@ useEffect(() => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-52 justify-between mt-3"
+          className="w-fit justify-between mt-3"
         > {selectedCard ? selectedCard.label : "اختر بطاقة"}
-        
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -149,7 +221,7 @@ useEffect(() => {
           <CommandList>
             <CommandEmpty>لاتوجد بطاقة</CommandEmpty>
             <CommandGroup>
-              {activeBank?.cards.map(card =>(
+              {activeBank?.cards.filter(card => !card.label.includes(frasan)).map(card =>(
                 <CommandItem
                   key={card.label}
                   value={card.label}
@@ -179,8 +251,41 @@ useEffect(() => {
 {calcResult && (
   <>
     <br /><br />
-    <CountUp from={0} to={calcResult.localcal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل محلي 🇸🇦<br/>
-    <CountUp from={0} to={calcResult.intercal} separator="" direction="up" duration={0.1} className="count-up-text"/> ميل دولي ✈️<br />
+    <CountUp from={0} to={calcResult.LocalPay ? calcResult.LocalPay : 0} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك محلي 🇸🇦<br/>
+    <CountUp from={0} to={calcResult.InterPay ? calcResult.InterPay : calcResult.LocalPay} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك دولي ✈️<br />
+   {calcResult.Restaurant > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.Restaurant} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك مطاعم 🍔 <br />
+  </>)}
+{calcResult.SuperMarkets > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.SuperMarkets} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك الماركت 🛒 <br />
+  </>)}
+{calcResult.OnlineStores > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.OnlineStores} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك الاون لاين 🌐 <br />
+  </>)}
+{calcResult.GasSt > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.GasSt} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك البنزين ⛽ <br />
+  </>)}
+{calcResult.Phar > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.Phar} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك الصيدلية ⚕️ <br />
+  </>)}
+{calcResult.Travel > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.Travel} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك بوكنق 🏨 <br />
+  </>)}
+{calcResult.Edu > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.Edu} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك التعليم 📖 <br />
+  </>)}
+{calcResult.gamerspay > 0 && (
+  <>
+    <CountUp from={0} to={calcResult.gamerspay} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك الالعاب 🎮 <br />
+  </>)}
+
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" className="mt-2.5">عرض تفاصيل البطاقة</Button>
@@ -194,20 +299,20 @@ useEffect(() => {
           <TableRow>
       <TableCell className="font-medium">رسوم الاصدار</TableCell>    
       <TableCell className="text-right">
-        {SRI(calcResult.IssFee)}
+        {SRI(calcResult.IssuanceFee)}
       </TableCell>
 
       <TableCell className="font-medium">الرسوم السنوية</TableCell>
       <TableCell className="text-right">
-        {SRI(calcResult.AnnFee)}
+        {SRI(calcResult.AnnualFee)}
       </TableCell>
           </TableRow>
           <TableRow>
       <TableCell className="font-medium">معدل الربح</TableCell>
       <TableCell className="text-right">
-        {typeof calcResult.ProRate === "number"
-        ? `${calcResult.ProRate}%`
-        : calcResult.ProRate || ""}
+        {typeof calcResult.ProfitRate === "number"
+        ? `${calcResult.ProfitRate}%`
+        : calcResult.ProfitRate || ""}
       </TableCell>
       
       <TableCell className="font-medium">نسبة الدفع الدولي</TableCell>
@@ -228,7 +333,7 @@ useEffect(() => {
       </AlertDialogContent>
     </AlertDialog>
     <CardFooter className="flex-col gap-2 mt-2.5">
-        <Button type="submit" className="w-fit">
+        {/* <Button type="submit" className="w-fit">
         <PDFDownloadLink
           document={<PdfPrint price={price} data={calcAllBanks(price)} />}
           fileName="alfursan-result.pdf"
@@ -237,9 +342,14 @@ useEffect(() => {
             loading ? "جاري تجهيز الملف..." : "تحميل PDF"
           }
         </PDFDownloadLink>
-         </Button>
+         </Button> */}
       </CardFooter>
       </>)}
+    <DropdownMenuSeparator className="mt-5"/>
+    <Accordions/>
+      </CardContent>
+    </Card>
+
     </>
     )
 }
