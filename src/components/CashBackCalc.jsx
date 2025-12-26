@@ -4,12 +4,17 @@ import PdfPrint from '@/components/shared/PdfPrint';
 import * as dataCards from '@/assets/CashBack.json';
 import {CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {Table,TableBody,TableCell,TableRow,} from "@/components/ui/table"
 import {AlertDialog,AlertDialogAction,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogTitle,AlertDialogTrigger,} from "@/components/ui/alert-dialog"
 import {DropdownMenu,DropdownMenuContent,DropdownMenuGroup,DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuShortcut,DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
-import { SaudiRiyalIcon } from "lucide-react"
+import { SaudiRiyalIcon,AlertCircleIcon, CheckCircle2Icon, PopcornIcon,ChevronDownIcon } from "lucide-react"
 import CountUp from '@/components/shared/CountUp'
 import {
   Command,
@@ -33,17 +38,24 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import DarkToggle from '@/components/shared/DarkMode';
+export function AlertDemo() {
+  return (
+    <div className="grid w-fit max-w-xl items-start gap-4 text-right">
+      <Alert>
+        <CheckCircle2Icon />
+        <AlertTitle>للعلم</AlertTitle>
+        <AlertDescription>
+          الحد بالكاش باك شهري يتجدد كل شهر
+        </AlertDescription>
+      </Alert>
+
+    </div>
+  )
+}
+
 
 
 export default function CashBackCalc(){
-//    dataCards.bsf.cards.forEach(card =>{
-//     card.Cashback.forEach(cb =>{
-//         console.log(cb)
-//     })
-//    })
-//    Object.entries(dataCards.default).forEach(([_, cards]) =>{
-//     console.log(cards.cards)
-//    })
   const [price,setPrice] = useState("");
   const MAX_VALUE = 1000000;
   const frasan = "الفرسان"
@@ -56,23 +68,29 @@ export default function CashBackCalc(){
             </span>
         )
     }
-    return value || "غير معلوم";
+    return value || "غير محدود";
     }
+    
   const [selectedCard, setSelectedCard] = useState(null);
   const value = Number(price);
   const [open, setOpen] = useState(false)
   const [activeBankKey, setActiveBankKey] = useState(null);
   const [calcResult, setCalcResult] = useState(null);
+  const rules = selectedCard?.rules ?? {};
   const calcResultData = useMemo(()=>{
     if(!selectedCard || !value) return null;
+    const applyCap = (value, cap) => {
+    if (!cap) return value;
+    return value > cap ? cap : value;
+    };
     const cb = selectedCard.Cashback ?? {};
     const restaurantRate = cb.Restaurants ?? 0;
     const SuperMarketsRate = cb.SuperMarkets ?? 0;
     const OnlineStoresRate = cb.OnlineStores ?? 0;
-    const cap = selectedCard.cap ?? null;
-    let onlinepayCap = selectedCard.onlinepayCap ?? null;
     const GasStRate = cb.GasSt ?? 0;
     const PharRate = cb.Phar ?? 0;
+    const EduRate = cb.Edu ?? 0;
+    const TravelRate = cb.Travel ?? 0;
     let SuperMarkets = value * SuperMarketsRate;
     let restaurants = value * restaurantRate;
     let OnlineStores = value * OnlineStoresRate;
@@ -82,38 +100,60 @@ export default function CashBackCalc(){
     let AnnualFee = selectedCard?.AnnualFee;
     let ProfitRate = selectedCard?.ProfitRate;
     let ForeignFee = selectedCard?.ForeignFee;
+    let AirPortJoin = selectedCard?.AirPortJoin;
+    let Edu = value * EduRate;
+    let Travel = value * TravelRate;
+    let MTTI = selectedCard?.MTTI;
     let LocalPay = value && selectedCard?.Cashback.LocalPay ? Number((value * selectedCard.Cashback.LocalPay).toFixed(2)) : 0;
     let InterPay = value && selectedCard?.Cashback.InterPay ? Number((value * selectedCard.Cashback.InterPay).toFixed(2)) : 0;
-    // const percent = selectedCard?.Tiers ?? [];
-    // const percents = percent.reduce((acc, tier) => {
-    //     if(value >= tier.min){
-    //         return tier.percent;
-    //     }
-    //     return acc;
-    // }, 0)
-    // console.log(percents)
-    if(cap){
-        if(restaurants > cap){
-            restaurants = cap;
-        }
-        if(SuperMarkets > cap){
-            SuperMarkets = cap;
-        }
-        if(OnlineStores > onlinepayCap){
-            OnlineStores = onlinepayCap;
-        }
-        if(GasSt > cap){
-            GasSt = cap;
-        }
-        if(Phar > cap){
-            Phar = cap;
-        }
-        if(LocalPay > cap){
-            LocalPay = cap;
-        }
-        if(InterPay > cap){
-            InterPay = cap;
-        }
+    let TotalPayment = SuperMarkets + restaurants + OnlineStores + LocalPay + InterPay;
+
+    const cap = selectedCard.cap ?? null;
+    const tiers = selectedCard?.Tiers
+    ? Object.values(selectedCard.Tiers)
+    :[];
+    const activeTier = tiers
+    .filter(t => value >= t.Amount)
+    .sort((a,b) => b.Amount - a.Amount)[0];
+    let onlinepayCap = selectedCard.onlinepayCap ?? null;
+    let Gascap = selectedCard.Gascap ?? null;
+    let MonthCap = selectedCard.MonthCap ?? null;
+    let SuperMarketCap = selectedCard.SuperMarketCap ?? null;
+    let Rescap = selectedCard.Rescap ?? null;
+    let PharCap = selectedCard.PharCap ?? null;
+    if(rules.isRajhi && + LocalPay + InterPay + restaurants + SuperMarkets + OnlineStores > 500){
+    restaurants = applyCap(value * restaurants, Rescap);
+    LocalPay = applyCap(value * LocalPay, cap);
+    InterPay = applyCap(value * InterPay, cap);
+    SuperMarkets = applyCap(value * SuperMarkets, SuperMarketCap);
+    OnlineStores = applyCap(value * OnlineStores, onlinepayCap);
+}
+    if(rules.isSNB && + LocalPay + InterPay + restaurants + SuperMarkets + OnlineStores > 500){
+    restaurants = applyCap(value * restaurants, Rescap);
+    LocalPay;
+    InterPay;
+    SuperMarkets = applyCap(value * SuperMarkets, cap);
+    GasSt = applyCap(value * GasSt, Gascap);
+    Phar = applyCap(value * Phar, PharCap);
+}
+    if(rules.isBSF && + LocalPay + InterPay + restaurants + SuperMarkets + Travel > 500){
+    restaurants = applyCap(value * restaurants, cap);
+    LocalPay;
+    InterPay;
+    SuperMarkets = applyCap(value * SuperMarkets, cap);
+    Phar = applyCap(value * Phar, cap);
+    Edu = applyCap(value * Edu , cap);
+    Travel = applyCap(value * Travel , cap);
+}
+    if (rules.useTiers && activeTier) {
+        restaurants= value * (activeTier.restaurants ?? activeTier.Restaurants);
+        Rescap ? restaurants = applyCap(value * restaurants, Rescap) : ""
+        LocalPay = value * (activeTier.LocalPay);
+        InterPay = value * (activeTier.InterPay);
+        SuperMarkets=value * (activeTier.SuperMarkets ?? activeTier.SuperMarkets);
+        SuperMarketCap ? SuperMarkets = applyCap(value * SuperMarkets, SuperMarketCap) : ""
+        GasSt=value * (activeTier.GasSt ?? activeTier.GasSt);
+        Gascap ? GasSt = applyCap(value * GasSt, Gascap) : ""
     }
     return{
         card: selectedCard,
@@ -124,19 +164,25 @@ export default function CashBackCalc(){
         GasSt: Number(GasSt.toFixed(2)),
         Phar: Number(Phar.toFixed(2)),
         cap,
-        LocalPay,
-        InterPay,
+        Gascap,
+        Edu,
+        Travel,
+        LocalPay: Number(LocalPay.toFixed(2)),
+        InterPay: Number(InterPay.toFixed(2)),
         IssuanceFee,
         AnnualFee,
         ProfitRate,
-        ForeignFee
+        ForeignFee,
+        MonthCap,
+        TotalPayment,
+        AirPortJoin,
+        MTTI
     }  
   }, [selectedCard,value])
-
 useEffect(() => {
   setCalcResult(calcResultData);
+  
 }, [calcResultData]);
-
 useEffect(() => {
   setSelectedCard(null);
   setCalcResult(null);
@@ -144,7 +190,7 @@ useEffect(() => {
   const activeBank = activeBankKey
   ? dataCards.default[activeBankKey]
   : null;
-
+const [showAlert, setShowAlert] = useState(false);
     const calcAllBanks = (price) =>{
         const value = Number(price);
         if(!value) return[];
@@ -161,10 +207,6 @@ useEffect(() => {
     })
     return result;
     }
-// if (selectedCard) {
-//   console.log(selectedCard.Cashback);
-// }
-
     return(
     <>
         <Card className="w-full max-w-sm justify-center">
@@ -201,6 +243,7 @@ useEffect(() => {
     </DropdownMenuGroup>
   </DropdownMenuContent>
 </DropdownMenu>
+
    <br />
    {activeBank && (
         <Popover open={open} onOpenChange={setOpen} >
@@ -250,13 +293,19 @@ useEffect(() => {
 )}
 {calcResult && (
   <>
-    <br /><br />
+    <br />
+    <div className="p-1">
+    {showAlert && calcResult.Restaurant > 0 && <AlertDemo/>}
+    </div>
     <CountUp from={0} to={calcResult.LocalPay ? calcResult.LocalPay : 0} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك محلي 🇸🇦<br/>
     <CountUp from={0} to={calcResult.InterPay ? calcResult.InterPay : calcResult.LocalPay} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك دولي ✈️<br />
    {calcResult.Restaurant > 0 && (
-  <>
-    <CountUp from={0} to={calcResult.Restaurant} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك مطاعم 🍔 <br />
-  </>)}
+            <>
+    <CountUp from={0} to={calcResult.Restaurant} separator="" direction="up" onEnd={()=> setShowAlert(true)} duration={0.1} className="count-up-text"/> كاش باك مطاعم 🍔 <br />
+  </>
+  
+)}
+ 
 {calcResult.SuperMarkets > 0 && (
   <>
     <CountUp from={0} to={calcResult.SuperMarkets} separator="" direction="up" duration={0.1} className="count-up-text"/> كاش باك الماركت 🛒 <br />
@@ -294,7 +343,7 @@ useEffect(() => {
         <AlertDialogHeader>
           <AlertDialogTitle>{selectedCard?.label}</AlertDialogTitle>
           <AlertDialogDescription>
-  <Table>
+      <Table>
       <TableBody>
           <TableRow>
       <TableCell className="font-medium">رسوم الاصدار</TableCell>    
@@ -322,8 +371,48 @@ useEffect(() => {
         : calcResult.ForeignFee || ""}
       </TableCell>
           </TableRow>
+          <TableRow>
+            <TableCell className="font-medium">الحد الشهري للكاش باك</TableCell>
+            <TableCell className="text-right">{SRI(calcResult.MonthCap)}</TableCell>
+            {!selectedCard?.CashBackInfo ? "" : <>
+            <TableCell className="font-medium">فئات الكاش باك</TableCell>
+            <TableCell className="text-right">{selectedCard?.CashBackInfo}</TableCell>
+            </>}
+          </TableRow>
+
       </TableBody>
 
+      </Table>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogAction>اغلاق</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+
+
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" className="mt-2.5">عرض مزايا البطاقة</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{selectedCard?.label}</AlertDialogTitle>
+          <AlertDialogDescription>
+      <Table>
+      <TableBody>
+          <TableRow>
+      <TableCell className="font-medium">الدخول لصالات المطارات</TableCell>
+      <TableCell className="text-right">
+        {!calcResult.AirPortJoin ? "لايوجد" : `${calcResult.AirPortJoin} صالة`}
+      </TableCell>
+      <TableCell className="font-medium">تأمين السفر</TableCell>
+      <TableCell className="text-right">
+        {!calcResult.MTTI ? "لايوجد" : calcResult.MTTI}
+      </TableCell>
+          </TableRow>
+      </TableBody>
       </Table>
           </AlertDialogDescription>
         </AlertDialogHeader>

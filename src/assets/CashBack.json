@@ -36,8 +36,15 @@
             "InterPay": 0.015,
             "LocalPay": 0.005
           },
+          "rules":{
+            "isRajhi":true
+          },
           "cap":200,
+          "SuperMarketCap":200,
           "onlinepayCap": 50,
+          "Rescap":200,
+          "MonthCap":500,
+          "AirPortJoin":25,
         "IssuanceFee": 250,
         "AnnualFee": "غير معلوم",
         "ProfitRate": 2.5,
@@ -54,8 +61,16 @@
             "InterPay": 0.015,
             "LocalPay": 0.005
           },
+          "rules":{
+            "isRajhi":true
+          },
           "cap":200,
+          "SuperMarketCap":200,
           "onlinepayCap": 50,
+          "Rescap":200,
+          "MonthCap":500,
+          "AirPortJoin":1200,
+          "MTTI":"نعم",
         "IssuanceFee": 450,
         "AnnualFee": "غير معلوم",
         "ProfitRate": 2.5,
@@ -75,7 +90,8 @@
         },
         "IssuanceFee":"مجانية",
         "AnnualFee":0,
-        "ForeignFee":2
+        "ForeignFee":2,
+        "AirPortJoin":25
         },
         {
         "label": "سيجنتشر مسبقة الدفع",
@@ -85,7 +101,8 @@
         },
         "IssuanceFee":"غير معلوم",
         "AnnualFee":300,
-        "ForeignFee":2
+        "ForeignFee":2,
+        "AirPortJoin":1000
         }
     ]
   },
@@ -104,8 +121,49 @@
             "InterPay": 0.02,
             "LocalPay": 0.01
           },
+          "rules": {
+          "useTiers": true
+          },
+          "Tiers":{
+            "Zero":{
+              "Amount":0,
+              "Restaurants":0,
+              "SuperMarkets":0,
+              "GasSt":0,
+              "InterPay": 0,
+              "LocalPay": 0
+            },
+            "one":{
+              "Amount":2000,
+              "Restaurants":0.03,
+              "SuperMarkets":0.03,
+              "GasSt":0.03,
+              "InterPay": 0.02,
+              "LocalPay": 0.01
+            },
+            "Two":{
+              "Amount":10000,
+              "Restaurants":0.05,
+              "SuperMarkets":0.05,
+              "GasSt":0.05,
+              "InterPay": 0.02,
+              "LocalPay": 0.01
+            },
+            "Three":{
+              "Amount":15000,
+              "Restaurants":0.10,
+              "SuperMarkets":0.10,
+              "GasSt":0.10,
+              "InterPay": 0.02,
+              "LocalPay": 0.01
+            }
+          },
           "cap":100,
           "Rescap":200,
+          "Gascap":100,
+          "SuperMarketCap":100,
+          "MonthCap":"200 للمطاعم , 100 للماركت والبنزين , غير محدود للباقي",
+          "AirPortJoin":25,
         "IssuanceFee": "غير معلوم",
         "AnnualFee": "غير معلوم",
         "ProfitRate": 3.25,
@@ -129,6 +187,13 @@
             "InterPay": 0.02,
             "LocalPay": 0.007
           },
+          "rules":{
+            "isSNB":true
+          },
+          "Gascap":100,
+          "Rescap":200,
+          "SuperMarketCap":200,
+          "PharCap":200,
         "IssuanceFee": "غير معلوم",
         "AnnualFee": 200,
         "ProfitRate": 3.1,
@@ -139,18 +204,50 @@
         "img": "/cards/SnbCashBackPlat.png",
         "Cashback":
           {
-            "Restaurants": 0.05,
-            "SuperMarkets": 0.05,
-            "GasSt": 0.11,
-            "Phar": 0.05,
-            "InterPay": 0.02,
-            "LocalPay": 0.007
+            "Restaurants": 0,
+            "SuperMarkets": 0,
+            "GasSt": 0,
+            "Phar": 0,
+            "InterPay": 0,
+            "LocalPay": 0
           },
-          "Tiers":[
-            {"min":500, "percent":0.005},
-            {"min": 5000, "percent":0.01},
-            {"min":10000, "percent":0.02}
-          ],
+          "rules": {
+          "useTiers": true
+          },
+          "Tiers":{
+            "Zero":{
+              "Amount":0,
+              "Restaurants":0,
+              "SuperMarkets":0,
+              "GasSt":0,
+              "InterPay": 0,
+              "LocalPay": 0
+            },
+            "one":{
+              "Amount":500,
+              "Restaurants":0.005,
+              "SuperMarkets":0.005,
+              "GasSt":0.005,
+              "InterPay": 0.005,
+              "LocalPay": 0.005
+            },
+            "Two":{
+              "Amount":5000,
+              "Restaurants":0.01,
+              "SuperMarkets":0.01,
+              "GasSt":0.01,
+              "InterPay": 0.01,
+              "LocalPay": 0.01
+            },
+            "Three":{
+              "Amount":10000,
+              "Restaurants":0.02,
+              "SuperMarkets":0.02,
+              "GasSt":0.02,
+              "InterPay": 0.02,
+              "LocalPay": 0.02
+            }
+          },
         "IssuanceFee": "غير معلوم",
         "AnnualFee": "مجانية",
         "ProfitRate": 2.8,
@@ -175,8 +272,14 @@
             "InterPay": 0.005,
             "LocalPay": 0.005
           },
-        "cap": 200,
+          "rules":{
+            "isBSF":true
+          },
+        "cap": 250,
+        "MonthCap":"250 ريال لكل الفئات",
+        "CashBackInfo":"10% لفئة واحدة 3% لفئتين 2% لفئتين",
         "IssuanceFee": "غير معلوم",
+        "AirPortJoin":25,
         "AnnualFee": 287.5,
         "ProfitRate": 3,
         "ForeignFee": 2
