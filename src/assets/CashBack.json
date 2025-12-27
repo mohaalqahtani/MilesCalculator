@@ -320,6 +320,30 @@
         "gamerspay":0.075,
         "hotelpay":0.07
         },
+          "rules":{
+          "isRiyadB":true,
+          "useTiers":true
+        },
+          "Tiers":{
+          "Zero":{
+          "Amount":0,
+          "gamerspay":0,
+          "Travel":0,
+          "OnlineStores":0,
+          "InterPay": 0,
+          "LocalPay": 0
+            },
+          "One":{
+          "Amount":100,
+          "gamerspay":0.05,
+          "Travel":0.07,
+          "OnlineStores":0.01,
+          "InterPay": 0.01,
+          "LocalPay": 0.008
+            }
+          },
+        "MTTI":"نعم",
+        "AirPortJoin":1300,
         "IssuanceFee": "غير معلوم",
         "AnnualFee": 402.5,
         "ProfitRate":"غير واضح",
@@ -336,6 +360,30 @@
         "gamerspay":0.1,
         "hotelpay":0.07
         },
+          "rules":{
+          "isRiyadB":true,
+          "useTiers":true
+        },
+          "Tiers":{
+          "Zero":{
+          "Amount":0,
+          "gamerspay":0,
+          "Travel":0,
+          "OnlineStores":0,
+          "InterPay": 0,
+          "LocalPay": 0
+            },
+          "One":{
+          "Amount":100,
+          "gamerspay":0.05,
+          "Travel":0.07,
+          "OnlineStores":0.01,
+          "InterPay": 0.01,
+          "LocalPay": 0.008
+            }
+          },
+        "MTTI":"نعم",
+        "AirPortJoin":1300,
         "IssuanceFee": "غير معلوم",
         "AnnualFee": 1150,
         "ProfitRate":"غير واضح",
@@ -348,13 +396,36 @@
         "Cashback":{
         "LocalPay":0.008,
         "InterPay":0.01,
-        "onlinepay":0.01,
+        "OnlineStores":0.01,
         "gamerspay":0.05,
-        "hotelpay":0.07
+        "Travel":0.07
         },
+        "rules":{
+          "isRiyadB":true,
+          "useTiers":true
+        },
+          "Tiers":{
+          "Zero":{
+          "Amount":0,
+          "gamerspay":0,
+          "Travel":0,
+          "OnlineStores":0,
+          "InterPay": 0,
+          "LocalPay": 0
+            },
+          "One":{
+          "Amount":100,
+          "gamerspay":0.05,
+          "Travel":0.07,
+          "OnlineStores":0.01,
+          "InterPay": 0.01,
+          "LocalPay": 0.008
+            }
+          },
+          "AirPortJoin":25,
         "IssuanceFee": "غير معلوم",
-        "AnnualFee": 1150,
-        "ProfitRate":"غير واضح",
+        "AnnualFee": 115,
+        "ProfitRate":3.3,
         "ForeignFee":2 
         }
 
@@ -383,10 +454,124 @@
         "LocalPay":0.015,
         "InterPay":0.02
         },
+        "MTTI":"نعم",
+        "AirPortJoin":"نعم وغير محدد",
         "IssuanceFee": "غير معلوم",
         "AnnualFee": 322,
         "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
         "ForeignFee":1.99 
+        }
+    ]
+  },
+  "barq": {
+    "name":"برق",
+    "logo":"/barq.svg",
+    "cards":[
+        {
+        "label": "برق فيزا",
+        "img": "/cards/barq.png",
+        "Cashback":{
+        "LocalPay":0,
+        "InterPay":0
+        },
+        "MonthCap":"الكاش باك غير محدود وغير ثابت (عجلة)",
+        "MTTI":"نعم",
+        "IssuanceFee": "مجانية",
+        "AnnualFee": "مجانية",
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":0 
+        }
+    ]
+  },
+  "tiqmo": {
+    "name":"تيكمو",
+    "logo":"/tiqmo.svg",
+    "cards":[
+        {
+        "label": "تيكمو البلاتينية",
+        "img": "/cards/tiqmo.png",
+        "Cashback":{
+        "LocalPay":0,
+        "InterPay":0
+        },
+          "rules":{
+          "useTiers":true
+        },
+          "Tiers":{
+          "Zero":{
+          "Amount":0,
+          "InterPay": 0.005,
+          "LocalPay": 0.005
+            },
+          "One":{
+          "Amount":1501,
+          "InterPay": 0.007,
+          "LocalPay": 0.007
+            },
+          "Two":{
+          "Amount":3001,
+          "InterPay": 0.01,
+          "LocalPay": 0.01
+            },
+          "Three":{
+          "Amount":5001,
+          "InterPay": 0.015,
+          "LocalPay": 0.015
+            }
+          },
+        "MonthCap":"الكاش باك تدريجي أضف المبلغ كامل للشهر",
+        "MTTI":"نعم",
+        "AirPortJoin":25,
+        "IssuanceFee": "مجانية",
+        "AnnualFee": "مجانية",
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":1.7 
+        }
+    ]
+  },
+    "stcbank": {
+    "name":"بنك STC",
+    "logo":"/stcbank.svg",
+    "cards":[
+        {
+        "label": "كلاسيكية",
+        "img": "/cards/stcbankc.png",
+        "Cashback":{
+        "LocalPay":0.005,
+        "InterPay":0.005
+        },
+        "IssuanceFee": 23,
+        "AnnualFee": 23,
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":2
+        },
+        {
+        "label": "بلاتينية",
+        "img": "/cards/stcbankplat.png",
+        "Cashback":{
+        "LocalPay":0.007,
+        "InterPay":0.007
+        },
+        "MTTI":"نعم",
+        "AirPortJoin":"نعم وغير محدد",
+        "IssuanceFee": 230,
+        "AnnualFee": 230,
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":2
+        },
+        {
+        "label": "سيجنتشر",
+        "img": "/cards/stcbanks.png",
+        "Cashback":{
+        "LocalPay":0.01,
+        "InterPay":0.01
+        },
+        "MTTI":"نعم",
+        "AirPortJoin":"نعم وغير محدد",
+        "IssuanceFee": 575,
+        "AnnualFee": 575,
+        "ProfitRate":"لايوجد البطاقة مسبقة الدفع",
+        "ForeignFee":2
         }
     ]
   }

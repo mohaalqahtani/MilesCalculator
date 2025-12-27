@@ -5,7 +5,6 @@ import {
   CardContent,
   CardHeader,
 } from "@/components/ui/card"
-// import TabsCho from '@/components/shared/TabsCho';
 import DarkToggle from '@/components/shared/DarkMode';
 import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 function App() {
@@ -19,7 +18,6 @@ function App() {
       <CardContent>
       <a href="/cashback">الكاش باك</a><br />
       <a href="/miles">الاميال</a>
-    {/* <TabsCho/> */}
     <DropdownMenuSeparator className="mt-5"/>
     <Accordions/>
       </CardContent>

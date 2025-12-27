@@ -53,8 +53,6 @@ export function AlertDemo() {
   )
 }
 
-
-
 export default function CashBackCalc(){
   const [price,setPrice] = useState("");
   const MAX_VALUE = 1000000;
@@ -91,6 +89,7 @@ export default function CashBackCalc(){
     const PharRate = cb.Phar ?? 0;
     const EduRate = cb.Edu ?? 0;
     const TravelRate = cb.Travel ?? 0;
+    let gamerspay = cb.gamerspay ?? 0;
     let SuperMarkets = value * SuperMarketsRate;
     let restaurants = value * restaurantRate;
     let OnlineStores = value * OnlineStoresRate;
@@ -145,15 +144,19 @@ export default function CashBackCalc(){
     Edu = applyCap(value * Edu , cap);
     Travel = applyCap(value * Travel , cap);
 }
+
     if (rules.useTiers && activeTier) {
-        restaurants= value * (activeTier.restaurants ?? activeTier.Restaurants);
-        Rescap ? restaurants = applyCap(value * restaurants, Rescap) : ""
         LocalPay = value * (activeTier.LocalPay);
         InterPay = value * (activeTier.InterPay);
+        gamerspay = value * (activeTier.gamerspay);
+        Travel = value * (activeTier.Travel)
+        OnlineStores = value * (activeTier.OnlineStores)
+        restaurants= value * (activeTier.restaurants ?? activeTier.Restaurants);
+        Rescap ? restaurants = applyCap(value * restaurants, Rescap) : "";
         SuperMarkets=value * (activeTier.SuperMarkets ?? activeTier.SuperMarkets);
-        SuperMarketCap ? SuperMarkets = applyCap(value * SuperMarkets, SuperMarketCap) : ""
+        SuperMarketCap ? SuperMarkets = applyCap(value * SuperMarkets, SuperMarketCap) : "";
         GasSt=value * (activeTier.GasSt ?? activeTier.GasSt);
-        Gascap ? GasSt = applyCap(value * GasSt, Gascap) : ""
+        Gascap ? GasSt = applyCap(value * GasSt, Gascap) : "";
     }
     return{
         card: selectedCard,
@@ -166,7 +169,8 @@ export default function CashBackCalc(){
         cap,
         Gascap,
         Edu,
-        Travel,
+        Travel: Number(Travel.toFixed(2)),
+        gamerspay: Number(gamerspay.toFixed(2)),
         LocalPay: Number(LocalPay.toFixed(2)),
         InterPay: Number(InterPay.toFixed(2)),
         IssuanceFee,
@@ -357,7 +361,7 @@ const [showAlert, setShowAlert] = useState(false);
       </TableCell>
           </TableRow>
           <TableRow>
-      <TableCell className="font-medium">معدل الربح</TableCell>
+      <TableCell className="font-medium">معدل الربح شهريًا</TableCell>
       <TableCell className="text-right">
         {typeof calcResult.ProfitRate === "number"
         ? `${calcResult.ProfitRate}%`
